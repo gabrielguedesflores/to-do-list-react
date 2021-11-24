@@ -25,28 +25,34 @@ const App = () => {
       if ( task.id === taskId) return { ... task, completed: !task.completed};
       return task;
     });
-
     setTasks(newTasks);
   }
 
   const handleTaskAddition = ( taskTitle ) => {
-      const newTask = [
-        ... tasks, 
+      const newTask = [... tasks, 
         {
           title: taskTitle,
           id: uuidv4(),
           completed: false
         },
       ];
-
       setTasks(newTask);
   };  
+
+  const handleTaskDeletion = (taskId ) =>{
+    const newTask = tasks.filter( task => task.id !== taskId)
+    setTasks(newTask);
+  }
 
   return  (
     <>
       <div className="container">
         <Addtask handleTaskAddition={handleTaskAddition}  />
-        <Tasks tasks={ tasks } handleTaskClick={handleTaskClick} />
+        <Tasks 
+          tasks={ tasks } 
+          handleTaskClick={handleTaskClick}
+          handleTaskDeletion={handleTaskDeletion}
+         />
       </div>
     </>
   );
